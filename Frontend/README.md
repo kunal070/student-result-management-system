@@ -1,73 +1,72 @@
-<<<<<<< HEAD
-# React + TypeScript + Vite
+# Student Result Management System - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React application for managing student records, courses, and academic results with real-time updates and responsive design.
 
-Currently, two official plugins are available:
+## 🚀 Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
 
-## Expanding the ESLint configuration
+### Installation & Setup
+```bash
+# Install dependencies
+npm install
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Start development server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The application will be available at `http://localhost:5173`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📜 Available Scripts
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## 🛠️ Tech Stack
+
+- **React 19** with TypeScript
+- **Vite** for fast development and building
+- **Tailwind CSS** for styling
+- **React Router** for navigation
+- **React Query** for server state management
+- **React Hook Form + Zod** for form validation
+- **Axios** for API communication
+
+## 🎯 Features
+
+- ✅ Student Management (Add, View, Delete)
+- ✅ Course Management (Add, View, Delete) 
+- ✅ Result Management with UPSERT behavior
+- ✅ Real-time Dashboard with Statistics
+- ✅ Responsive Design for all devices
+- ✅ Form Validation with detailed error messages
+- ✅ Loading states and error handling
+
+## 🏗️ Project Structure
+
 ```
-=======
-# student-frontend
-A single-page application (SPA) for managing students, courses, and results, built as part of ShyftLabs' development assessment. Includes full CRUD functionality with real-time updates and relational data handling.
+src/
+├── components/     # Reusable UI components
+├── pages/         # Route-specific pages
+├── api/           # API service functions
+├── types/         # TypeScript type definitions
+├── validation/    # Zod validation schemas
+└── utils/         # Helper functions
+```
+
+## 🔧 Environment Setup
+
+Create a `.env` file in the root directory:
+```bash
+VITE_API_BASE_URL=http://localhost:5000/api
+```
+
+## 📚 Documentation
+
+For detailed documentation, see:
+- [Frontend Architecture](../docs/FRONTEND_DOCUMENTATION.md)
+- [API Documentation](../docs/API.md)
