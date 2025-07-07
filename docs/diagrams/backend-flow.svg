@@ -1,0 +1,86 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8fafc"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" fill="#1e293b" font-size="18" font-weight="bold">⚙️ Backend Flow</text>
+  <text x="400" y="50" text-anchor="middle" fill="#64748b" font-size="12">Express.js + TypeScript + SQLite</text>
+  
+  <!-- HTTP Request -->
+  <rect x="320" y="80" width="160" height="50" rx="25" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+  <text x="400" y="110" text-anchor="middle" fill="#166534" font-size="14" font-weight="bold">📥 HTTP Request</text>
+  
+  <!-- Arrow down -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+  </defs>
+  
+  <line x1="400" y1="130" x2="400" y2="160" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Route Handler -->
+  <rect x="320" y="170" width="160" height="50" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="400" y="200" text-anchor="middle" fill="#92400e" font-size="14" font-weight="bold">🛣️ Route Handler</text>
+  
+  <line x1="400" y1="220" x2="400" y2="250" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Validation -->
+  <rect x="320" y="260" width="160" height="50" rx="8" fill="#f3e8ff" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="400" y="290" text-anchor="middle" fill="#6b21a8" font-size="14" font-weight="bold">✅ Server Validation</text>
+  
+  <line x1="400" y1="310" x2="400" y2="340" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Business Logic -->
+  <rect x="320" y="350" width="160" height="50" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+  <text x="400" y="380" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="bold">🧠 Business Logic</text>
+  
+  <line x1="400" y1="400" x2="400" y2="430" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Database Operation -->
+  <rect x="320" y="440" width="160" height="50" rx="8" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
+  <text x="400" y="470" text-anchor="middle" fill="#be185d" font-size="14" font-weight="bold">🗄️ Database Query</text>
+  
+  <!-- Side Components -->
+  <rect x="80" y="200" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="140" y="225" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">Express Router</text>
+  
+  <rect x="600" y="200" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="660" y="225" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">CORS Middleware</text>
+  
+  <rect x="80" y="280" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="140" y="305" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">Zod Schemas</text>
+  
+  <rect x="600" y="280" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="660" y="305" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">Error Handling</text>
+  
+  <rect x="80" y="360" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="140" y="385" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">Service Layer</text>
+  
+  <rect x="600" y="360" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="660" y="385" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">UPSERT Logic</text>
+  
+  <rect x="80" y="440" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="140" y="465" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">Prepared Statements</text>
+  
+  <rect x="600" y="440" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="660" y="465" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">Transaction Safety</text>
+  
+  <!-- Connecting lines -->
+  <line x1="200" y1="220" x2="320" y2="195" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  <line x1="600" y1="220" x2="480" y2="195" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  <line x1="200" y1="300" x2="320" y2="285" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  <line x1="600" y1="300" x2="480" y2="285" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  <line x1="200" y1="380" x2="320" y2="375" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  <line x1="600" y1="380" x2="480" y2="375" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  <line x1="200" y1="460" x2="320" y2="465" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  <line x1="600" y1="460" x2="480" y2="465" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  
+  <!-- Key Features -->
+  <rect x="50" y="520" width="700" height="60" rx="10" fill="#f8f9fa" stroke="#e9ecef"/>
+  <text x="70" y="540" fill="#374151" font-size="12" font-weight="bold">Key Features:</text>
+  <text x="70" y="555" fill="#64748b" font-size="11">• Multi-layer validation with detailed error responses</text>
+  <text x="70" y="570" fill="#64748b" font-size="11">• UPSERT operations for conflict resolution</text>
+  <text x="400" y="555" fill="#64748b" font-size="11">• Prepared statements for security and performance</text>
+  <text x="400" y="570" fill="#64748b" font-size="11">• Comprehensive error handling and logging</text>
+</svg>

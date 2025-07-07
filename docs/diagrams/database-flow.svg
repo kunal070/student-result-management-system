@@ -1,0 +1,104 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8fafc"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" fill="#1e293b" font-size="18" font-weight="bold">🗄️ Database Flow</text>
+  <text x="400" y="50" text-anchor="middle" fill="#64748b" font-size="12">SQLite + WAL Mode + Better-sqlite3</text>
+  
+  <!-- SQL Query -->
+  <rect x="320" y="80" width="160" height="50" rx="25" fill="#fed7d7" stroke="#f56565" stroke-width="2"/>
+  <text x="400" y="110" text-anchor="middle" fill="#c53030" font-size="14" font-weight="bold">📝 SQL Query</text>
+  
+  <!-- Arrow down -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+  </defs>
+  
+  <line x1="400" y1="130" x2="400" y2="160" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Query Parsing -->
+  <rect x="320" y="170" width="160" height="50" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="400" y="200" text-anchor="middle" fill="#92400e" font-size="14" font-weight="bold">🔍 Query Parsing</text>
+  
+  <line x1="400" y1="220" x2="400" y2="250" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Constraint Check -->
+  <rect x="320" y="260" width="160" height="50" rx="8" fill="#f3e8ff" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="400" y="290" text-anchor="middle" fill="#6b21a8" font-size="14" font-weight="bold">🔒 Constraint Check</text>
+  
+  <line x1="400" y1="310" x2="400" y2="340" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Table Operation -->
+  <rect x="320" y="350" width="160" height="50" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+  <text x="400" y="380" text-anchor="middle" fill="#166534" font-size="14" font-weight="bold">📊 Table Operation</text>
+  
+  <line x1="400" y1="400" x2="400" y2="430" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Result Set -->
+  <rect x="320" y="440" width="160" height="50" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+  <text x="400" y="470" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="bold">📋 Result Set</text>
+  
+  <!-- Side Components -->
+  <rect x="80" y="200" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="140" y="225" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">Prepared Statements</text>
+  
+  <rect x="600" y="200" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="660" y="225" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">Query Optimization</text>
+  
+  <rect x="80" y="280" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="140" y="305" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">Foreign Keys</text>
+  
+  <rect x="600" y="280" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="660" y="305" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">Unique Checks</text>
+  
+  <rect x="80" y="360" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="140" y="385" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">UPSERT Logic</text>
+  
+  <rect x="600" y="360" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="660" y="385" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">Cascade Deletes</text>
+  
+  <rect x="80" y="440" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="140" y="465" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">WAL Journaling</text>
+  
+  <rect x="600" y="440" width="120" height="40" rx="20" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="660" y="465" text-anchor="middle" fill="#475569" font-size="12" font-weight="bold">Index Optimization</text>
+  
+  <!-- Connecting lines -->
+  <line x1="200" y1="220" x2="320" y2="195" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  <line x1="600" y1="220" x2="480" y2="195" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  <line x1="200" y1="300" x2="320" y2="285" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  <line x1="600" y1="300" x2="480" y2="285" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  <line x1="200" y1="380" x2="320" y2="375" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  <line x1="600" y1="380" x2="480" y2="375" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  <line x1="200" y1="460" x2="320" y2="465" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  <line x1="600" y1="460" x2="480" y2="465" stroke="#cbd5e1" stroke-dasharray="5,5"/>
+  
+  <!-- Database Tables -->
+  <g transform="translate(250, 500)">
+    <rect x="0" y="0" width="80" height="60" rx="5" fill="#fef2f2" stroke="#ef4444"/>
+    <text x="40" y="20" text-anchor="middle" fill="#dc2626" font-size="11" font-weight="bold">Students</text>
+    <text x="40" y="35" text-anchor="middle" fill="#7f1d1d" font-size="9">Primary Key</text>
+    <text x="40" y="50" text-anchor="middle" fill="#7f1d1d" font-size="9">Validation</text>
+  </g>
+  
+  <g transform="translate(350, 500)">
+    <rect x="0" y="0" width="80" height="60" rx="5" fill="#f0fdf4" stroke="#22c55e"/>
+    <text x="40" y="20" text-anchor="middle" fill="#15803d" font-size="11" font-weight="bold">Courses</text>
+    <text x="40" y="35" text-anchor="middle" fill="#166534" font-size="9">Unique Names</text>
+    <text x="40" y="50" text-anchor="middle" fill="#166534" font-size="9">Constraints</text>
+  </g>
+  
+  <g transform="translate(450, 500)">
+    <rect x="0" y="0" width="80" height="60" rx="5" fill="#faf5ff" stroke="#8b5cf6"/>
+    <text x="40" y="20" text-anchor="middle" fill="#7c3aed" font-size="11" font-weight="bold">Results</text>
+    <text x="40" y="35" text-anchor="middle" fill="#6b21a8" font-size="9">UPSERT</text>
+    <text x="40" y="50" text-anchor="middle" fill="#6b21a8" font-size="9">Foreign Keys</text>
+  </g>
+  
+  <!-- Arrows between tables -->
+  <line x1="330" y1="530" x2="350" y2="530" stroke="#64748b" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="430" y1="530" x2="450" y2="530" stroke="#64748b" stroke-width="1" marker-end="url(#arrow)"/>
+</svg>
