@@ -1,4 +1,3 @@
-    
 # Frontend Documentation
 
 ## Student Result Management System - Frontend
@@ -46,8 +45,9 @@ Frontend/
 │   │   │   ├── GenericTable.tsx
 │   │   │   ├── LoadingSkeleton.tsx
 │   │   │   ├── ActionButtons.tsx
-│   │   │   ├── StatusBadge.tsx
-│   │   │   └── get*TableColumns.tsx
+│   │   │   ├── courseColumns.tsx
+│   │   │   ├── resultColumns.tsx
+│   │   │   └── studentColumns.tsx
 │   │   └── ui/
 │   │       ├── Button.tsx
 │   │       ├── InputField.tsx
@@ -81,8 +81,6 @@ Frontend/
 ├── vite.config.ts
 └── tailwind.config.js
 ```
-
-...
 
 # Architecture & Implementation
 
@@ -168,7 +166,7 @@ Frontend/
 
 #### `Dashboard.tsx`
 - Real-time stats & grade distribution  
-- Data aggregation  
+- Data aggregation with GPA calculation logic
 - Responsive grid layout  
 - Error fallback  
 
@@ -186,13 +184,14 @@ Frontend/
 
 #### `GenericTable.tsx`
 - Type-safe generics  
-- Pagination, sorting, search  
+- Pagination, sorting  
 - Skeleton loading, empty state  
 - Responsive scrollable table  
 
 #### Column Config System
 - Custom render functions  
-- Sortable, responsive, action columns  
+- Sortable, responsive, action columns
+- Simplified column definitions: `courseColumns.tsx`, `resultColumns.tsx`, `studentColumns.tsx`
 
 ---
 
@@ -223,8 +222,8 @@ Frontend/
 #### API Service Pattern
 - Per-entity service files  
 - Type-safe responses  
-- Standardized error handling  
-- Response normalization  
+- Standardized error handling with hierarchy  
+- Response normalization with data structure extraction
 
 ---
 
@@ -254,7 +253,7 @@ Frontend/
 #### Validation Strategy
 - Schema-first (Zod)  
 - Real-time validation  
-- Server & custom rules  
+- Server & custom rules with business logic (age calculation)
 
 #### Form State
 - Controlled components  
@@ -262,7 +261,7 @@ Frontend/
 
 #### Schema Architecture
 - Type inference  
-- Custom rules (e.g., age calc)  
+- Custom rules (e.g., 10-year minimum age requirement)
 - Error message customization  
 - Schema reuse  
 
@@ -315,7 +314,7 @@ Frontend/
 ### Global Strategy
 
 - React Error Boundaries  
-- API error transformation  
+- API error transformation with specific error hierarchy
 - Friendly messages  
 - Error logging  
 
@@ -381,5 +380,4 @@ Frontend/
 
 *Last Updated: July 2025*  
 *Architecture Version: 1.0*  
-*Backend Framework: React with TypeScript and Vite*
-
+*Frontend Framework: React with TypeScript and Vite*

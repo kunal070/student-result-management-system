@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import LoadingSkeleton from '../table/LoadingSkeleton';
-import { Users, ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { Users, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Column<T> {
   key: string;
@@ -15,11 +15,8 @@ interface Props<T> {
   columns: Column<T>[];
   isLoading?: boolean;
   itemsPerPage?: number;
-  showSearch?: boolean;
-  searchPlaceholder?: string;
   title?: string;
   subtitle?: string;
-  getSearchableText?: (item: T) => string;
 }
 
 export function GenericTable<T>({
@@ -27,36 +24,17 @@ export function GenericTable<T>({
   columns,
   isLoading = false,
   itemsPerPage = 10,
-  showSearch = false,
-  searchPlaceholder = "Search...",
   title,
   subtitle,
-  getSearchableText,
 }: Props<T>) {
-  const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' } | null>(null);
 
-  const filteredData = useMemo(() => {
-    if (!searchQuery || !showSearch) return data;
-    
-    const lower = searchQuery.toLowerCase();
-    return data.filter((item) => {
-      if (getSearchableText) {
-        return getSearchableText(item).toLowerCase().includes(lower);
-      }
-      
-      return Object.values(item as any).some(value => 
-        typeof value === 'string' && value.toLowerCase().includes(lower)
-      );
-    });
-  }, [searchQuery, data, showSearch, getSearchableText]);
-
   // Sort data
   const sortedData = useMemo(() => {
-    if (!sortConfig) return filteredData;
+    if (!sortConfig) return data;
     
-    return [...filteredData].sort((a, b) => {
+    return [...data].sort((a, b) => {
       const aVal = (a as any)[sortConfig.key];
       const bVal = (b as any)[sortConfig.key];
       
@@ -68,7 +46,7 @@ export function GenericTable<T>({
         ? String(aVal).localeCompare(String(bVal))
         : String(bVal).localeCompare(String(aVal));
     });
-  }, [filteredData, sortConfig]);
+  }, [data, sortConfig]);
 
   const paginatedData = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
@@ -93,11 +71,6 @@ export function GenericTable<T>({
       direction = 'desc';
     }
     setSortConfig({ key, direction });
-  };
-
-  const handleSearchChange = (value: string) => {
-    setSearchQuery(value);
-    setCurrentPage(1);
   };
 
   const renderPaginationButtons = () => {
@@ -190,10 +163,10 @@ export function GenericTable<T>({
 
   return (
     <div className="bg-white border rounded-xl shadow-sm overflow-hidden">
-      {(title || showSearch) && (
-        <div className="px-6 py-4 border-b bg-gray-50 flex justify-between items-center">
+      {title && (
+        <div className="px-6 py-4 border-b bg-gray-50">
           <div>
-            {title && <h2 className="text-lg font-semibold text-gray-900">{title}</h2>}
+            <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
             {subtitle && (
               <p className="text-sm text-gray-600">
                 {isLoading ? 'Loading...' : subtitle}
@@ -205,18 +178,6 @@ export function GenericTable<T>({
               </p>
             )}
           </div>
-          {showSearch && (
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-              <input
-                type="text"
-                placeholder={searchPlaceholder}
-                value={searchQuery}
-                onChange={(e) => handleSearchChange(e.target.value)}
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-64 text-sm"
-              />
-            </div>
-          )}
         </div>
       )}
 
@@ -256,7 +217,7 @@ export function GenericTable<T>({
                     <div>
                       <h3 className="text-lg font-medium text-gray-900">No records found</h3>
                       <p className="text-sm text-gray-500">
-                        {searchQuery ? 'Try a different search' : 'Try adding some data to begin'}
+                        Try adding some data to begin
                       </p>
                     </div>
                   </div>
