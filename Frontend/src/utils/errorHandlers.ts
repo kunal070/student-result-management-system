@@ -6,6 +6,7 @@ export const getFirstErrorMessage = (errors: Record<string, string[]>): string =
 };
 
 export const handleApiError = (response: any): void => {
+  // Show most specific error available: field errors > general message > fallback
   if (response.errors) {
     const firstErrorField = Object.keys(response.errors)[0];
     const firstError = response.errors[firstErrorField][0];

@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 
 import { fetchResults, deleteResultAPI } from '../api/result.api';
-import { getResultTableColumns } from '../components/table/getResultTableColumns';
+import { getResultTableColumns } from '../components/table/resultColumns';
 import { GenericTable } from '../components/table/GenericTable';
 import type { ResultWithRelations } from '../types/result';
 

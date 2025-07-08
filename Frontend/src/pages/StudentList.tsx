@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchStudents, deleteStudentAPI } from '../api/student.api';
 import type { Student } from '../types/student';
 import { GenericTable } from '../components/table/GenericTable';
-import { getStudentTableColumns } from '../components/table/getStudentTableColumns';
+import { getStudentTableColumns } from '../components/table/studentColumns';
 
 const StudentList: React.FC = () => {
   const queryClient = useQueryClient();

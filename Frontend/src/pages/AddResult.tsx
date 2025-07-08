@@ -44,6 +44,7 @@ const AddResult: React.FC = () => {
 
   const onSubmit = async (data: ResultSchema) => {
     try {
+      // UPSERT behavior: Updates existing result if student-course combination exists
       const response = await createResult(data);
 
       if (response.success) {

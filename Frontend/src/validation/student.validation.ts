@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+//student must need to be at least 10 years old
 const MINIMUM_AGE = 10;
 
 export const studentSchema = z.object({

@@ -4,7 +4,4 @@ export interface Student {
   lastName: string;
   email: string;
   dateOfBirth: string;
-  enrollmentDate?: string;
-  status?: 'active' | 'inactive' | 'pending';
-  coursesCount?: number;
 }

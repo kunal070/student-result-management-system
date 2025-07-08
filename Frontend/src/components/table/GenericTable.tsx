@@ -77,7 +77,7 @@ export function GenericTable<T>({
 
   const totalPages = Math.ceil(sortedData.length / itemsPerPage);
 
-  // Auto-navigate to previous page when current page becomes empty
+  // Prevent empty page display when last item on current page is deleted
   React.useEffect(() => {
     if (sortedData.length > 0 && currentPage > totalPages && totalPages > 0) {
       setCurrentPage(totalPages);
