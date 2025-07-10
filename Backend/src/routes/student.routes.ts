@@ -7,12 +7,13 @@ import {
 } from '../controllers/student.controller';
 import { validateRequest } from '../middleware/validateRequest';
 import { studentSchema } from '../validation/student.validation';
+import { idParamSchema } from '../validation/paramSchema';
 const router = Router();
 
 
 router.get('/list', getAllStudents);
-router.get('/list/:id', getStudentById);
+router.get('/list/:id', validateRequest(idParamSchema, 'params'),getStudentById);
 router.post('/create', validateRequest(studentSchema), createStudent);
-router.delete('/delete/:id', deleteStudent);
+router.delete('/delete/:id', validateRequest(idParamSchema, 'params'), deleteStudent);
 
 export default router;

@@ -1,28 +1,13 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { ZodSchema, ZodError } from 'zod';
 
-export class ValidationError extends Error {
-  public statusCode: number;
-  public errors: Record<string, string[]>;
-
-  constructor(message: string, errors: Record<string, string[]>) {
-    super(message);
-    this.name = 'ValidationError';
-    this.statusCode = 400;
-    this.errors = errors;
-  }
-}
-
 export const validateRequest = (
   schema: ZodSchema<any>,
-  target: 'body' | 'params' | 'query' = 'body'
+  target: 'body' | 'params' = 'body'
 ): RequestHandler => {
   return ((req: Request, res: Response, next: NextFunction): void => {
     try {
-      const dataToValidate = target === 'body' ? req.body :
-                            target === 'params' ? req.params :
-                            req.query;
-
+      const dataToValidate = target === 'body' ? req.body : req.params;
       const result = schema.safeParse(dataToValidate);
 
       if (!result.success) {
@@ -81,19 +66,3 @@ export const validateParams = (schema: ZodSchema<any>): RequestHandler => {
   return validateRequest(schema, 'params');
 };
 
-// Middleware for validating query parameters
-export const validateQuery = (schema: ZodSchema<any>): RequestHandler => {
-  return validateRequest(schema, 'query');
-};
-
-// Utility function to validate data programmatically 
-export const validateData = <T>(schema: ZodSchema<T>, data: unknown): T => {
-  const result = schema.safeParse(data);
-  
-  if (!result.success) {
-    const formattedErrors = formatZodErrors(result.error);
-    throw new ValidationError('Data validation failed', formattedErrors);
-  }
-  
-  return result.data;
-};

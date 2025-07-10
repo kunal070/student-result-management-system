@@ -12,6 +12,7 @@ const dbName = process.env.NODE_ENV === 'test' ? 'students-test.db' : 'students.
 const dbPath = path.join(dataDir, dbName);
 
 const dbOptions = {
+  // for the development environment, enable verbose logging
   verbose: process.env.NODE_ENV === 'development' ? console.log : undefined,
   fileMustExist: false,
   timeout: 60000, 
@@ -21,7 +22,10 @@ const dbOptions = {
 const database = new Database(dbPath, dbOptions);
 
 // Configure database
+
+// Write-Ahead Logging
 database.pragma('journal_mode = WAL');
+
 database.pragma('foreign_keys = ON');
 database.pragma('synchronous = NORMAL');
 database.pragma('cache_size = 1000');
