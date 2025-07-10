@@ -6,7 +6,6 @@ export const getFirstErrorMessage = (errors: Record<string, string[]>): string =
 };
 
 export const handleApiError = (response: any): void => {
-  // Show most specific error available: field errors > general message > fallback
   if (response.errors) {
     const firstErrorField = Object.keys(response.errors)[0];
     const firstError = response.errors[firstErrorField][0];
@@ -26,6 +25,4 @@ export const handleCatchError = (err: any): void => {
   } else {
     toast.error('Something went wrong. Please try again later.');
   }
-  
-  console.error('Failed to add student:', err);
-};
+  };
