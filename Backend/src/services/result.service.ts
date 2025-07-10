@@ -32,7 +32,7 @@ interface ServiceResponse<T = any> {
 }
 
 const queries = {
-  // for the upsert operation
+  // for the upsert logic
   checkExisting: db.prepare(`
     SELECT id FROM results 
     WHERE studentId = ? AND courseId = ?
@@ -107,47 +107,20 @@ export const createResult = async (data: CreateResultInput): Promise<ServiceResp
     const existingResult = queries.checkExisting.get(data.studentId, data.courseId);
 
     if (existingResult) {
-      queries.updateResult.run(data.grade, now, data.studentId, data.courseId);
-
-      // Complex JOIN query
-      const result = db.prepare(`
-        SELECT 
-          r.id, r.studentId, r.courseId, r.grade, r.createdAt, r.updatedAt,
-          s.firstName, s.lastName,
-          c.courseName
-        FROM results r
-        JOIN students s ON r.studentId = s.id
-        JOIN courses c ON r.courseId = c.id
-        WHERE r.studentId = ? AND r.courseId = ?
-      `).get(data.studentId, data.courseId) as any;
-
+      queries.updateResult.run(data.grade, now, data.studentId, data.courseId);     
       return {
         success: true,
         message: 'Result updated successfully',
-        data: result,
+        data: null, // No need to return the updated result
         statusCode: 200, 
       };
     } else {
       const id = generateId();
-      
       queries.insertResult.run(id, data.studentId, data.courseId, data.grade, now, now);
-
-      // Complex JOIN query
-      const result = db.prepare(`
-        SELECT 
-          r.id, r.studentId, r.courseId, r.grade, r.createdAt, r.updatedAt,
-          s.firstName, s.lastName,
-          c.courseName
-        FROM results r
-        JOIN students s ON r.studentId = s.id
-        JOIN courses c ON r.courseId = c.id
-        WHERE r.id = ?
-      `).get(id) as any;
-
       return {
         success: true,
         message: 'Result created successfully',
-        data: result,
+        data: null, // No need to return the created result
         statusCode: 201, 
       };
     }
