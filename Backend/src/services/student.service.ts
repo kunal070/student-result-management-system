@@ -14,7 +14,7 @@ interface CreateStudentInput {
   firstName: string;
   lastName: string;
   email: string;
-  dateOfBirth: string | Date;
+  dateOfBirth: Date;
 }
 
 interface ServiceResponse<T = any> {
@@ -32,7 +32,7 @@ const queries = {
     INSERT INTO students (id, firstName, lastName, email, dateOfBirth, createdAt, updatedAt)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `),
-  deleteStudent: db.prepare('DELETE FROM students WHERE id = ?')
+  deleteStudent: db.prepare('DELETE FROM students WHERE id = ?'),
 };
 
 export const getAllStudents = async (): Promise<ServiceResponse<Student[]>> => {
@@ -58,7 +58,7 @@ export const getAllStudents = async (): Promise<ServiceResponse<Student[]>> => {
 export const getStudentById = async (id: string): Promise<ServiceResponse<Student>> => {
   try {
     if (!id?.trim()) {
-      return {
+      return {  
         success: false,
         message: 'Invalid student ID',
         data: null,
@@ -89,7 +89,7 @@ export const createStudent = async (data: CreateStudentInput): Promise<ServiceRe
   try {
     const id = generateId();
     const now = new Date().toISOString();
-    const dateOfBirth = new Date(data.dateOfBirth).toISOString();
+    const dateOfBirth = new Date(data.dateOfBirth).toISOString(); // Ensure date is in ISO format
 
     queries.insertStudent.run(
       id,

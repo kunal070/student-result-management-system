@@ -1,11 +1,37 @@
 import { db, generateId } from '../lib/database';
 
-export const getAllCourses = async () => {
+interface Course {
+  id: string;
+  courseName: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface CreateCourseInput {
+  courseName: string;
+}
+
+interface ServiceResponse<T = any> {
+  success: boolean;
+  message: string;
+  data: T | null;
+  statusCode: number;
+  errors?: Record<string, string[]>;
+}
+
+const queries = {
+  getAllCourses: db.prepare('SELECT * FROM courses ORDER BY createdAt DESC'),
+  getCourseById: db.prepare('SELECT * FROM courses WHERE id = ?'),
+  insertCourse: db.prepare(`
+    INSERT INTO courses (id, courseName, createdAt, updatedAt)
+    VALUES (?, ?, ?, ?)
+  `),
+  deleteCourse: db.prepare('DELETE FROM courses WHERE id = ?')
+};
+
+export const getAllCourses = async (): Promise<ServiceResponse<Course[]>> => {
   try {
-    const courses = db.prepare(`
-      SELECT * FROM courses 
-      ORDER BY createdAt DESC
-    `).all();
+    const courses = queries.getAllCourses.all() as Course[];
 
     return {
       success: true,
@@ -24,14 +50,23 @@ export const getAllCourses = async () => {
   }
 };
 
-export const getCourseById = async (id: string) => {
+export const getCourseById = async (id: string): Promise<ServiceResponse<Course>> => {
   try {
-    const course = db.prepare('SELECT * FROM courses WHERE id = ?').get(id);
+    if (!id?.trim()) {
+      return {
+        success: false,
+        message: 'Invalid course ID',
+        data: null,
+        statusCode: 400,
+      };
+    }
+
+    const course = queries.getCourseById.get(id) as Course | undefined;
 
     return {
       success: !!course,
       message: course ? 'Course found' : 'Course not found',
-      data: course,
+      data: course || null,
       statusCode: course ? 200 : 404,
     };
   } catch (error) {
@@ -45,19 +80,14 @@ export const getCourseById = async (id: string) => {
   }
 };
 
-export const createCourse = async (data: { courseName: string }) => {
+export const createCourse = async (data: CreateCourseInput): Promise<ServiceResponse<Course>> => {
   try {
     const id = generateId();
     const now = new Date().toISOString();
 
-    const stmt = db.prepare(`
-      INSERT INTO courses (id, courseName, createdAt, updatedAt)
-      VALUES (?, ?, ?, ?)
-    `);
+    queries.insertCourse.run(id, data.courseName, now, now);
 
-    stmt.run(id, data.courseName, now, now);
-
-    const course = db.prepare('SELECT * FROM courses WHERE id = ?').get(id);
+    const course = queries.getCourseById.get(id) as Course;
 
     return {
       success: true,
@@ -89,10 +119,18 @@ export const createCourse = async (data: { courseName: string }) => {
   }
 };
 
-export const deleteCourse = async (id: string) => {
+export const deleteCourse = async (id: string): Promise<ServiceResponse<null>> => {
   try {
-    const stmt = db.prepare('DELETE FROM courses WHERE id = ?');
-    const result = stmt.run(id);
+    if (!id?.trim()) {
+      return {
+        success: false,
+        message: 'Invalid course ID',
+        data: null,
+        statusCode: 400,
+      };
+    }
+
+    const result = queries.deleteCourse.run(id);
 
     return {
       success: result.changes > 0,

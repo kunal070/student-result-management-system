@@ -4,7 +4,7 @@ export const courseSchema = z.object({
   courseName: z.string()
     .min(3, 'Course name must be at least 3 characters')
     .max(100, 'Course name cannot exceed 100 characters')
-    .transform(val => val.trim())
+    .transform(val => val.trim()) // Trim whitespace from the course name
     .refine(val => val.length >= 3, { 
       message: 'Course name must be at least 3 characters after trimming' 
     })

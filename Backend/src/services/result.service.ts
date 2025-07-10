@@ -1,7 +1,28 @@
 import { db, generateId } from '../lib/database';
 
+const queries = {
+  checkExisting: db.prepare(`
+    SELECT id FROM results 
+    WHERE studentId = ? AND courseId = ?
+  `),
+  
+  insertResult: db.prepare(`
+    INSERT INTO results (id, studentId, courseId, grade, createdAt, updatedAt)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `),
+  
+  updateResult: db.prepare(`
+    UPDATE results 
+    SET grade = ?, updatedAt = ? 
+    WHERE studentId = ? AND courseId = ?
+  `),
+  
+  deleteResult: db.prepare('DELETE FROM results WHERE id = ?')
+};
+
 export const getAllResults = async () => {
   try {
+    //Complex JOIN query 
     const results = db.prepare(`
       SELECT 
         r.id, r.studentId, r.courseId, r.grade, r.createdAt, r.updatedAt,
@@ -55,20 +76,12 @@ export const createResult = async (data: {
   try {
     const now = new Date().toISOString();
 
-    const existingResult = db.prepare(`
-      SELECT id FROM results 
-      WHERE studentId = ? AND courseId = ?
-    `).get(data.studentId, data.courseId);
+    const existingResult = queries.checkExisting.get(data.studentId, data.courseId);
 
     if (existingResult) {
-      const updateStmt = db.prepare(`
-        UPDATE results 
-        SET grade = ?, updatedAt = ? 
-        WHERE studentId = ? AND courseId = ?
-      `);
-      
-      updateStmt.run(data.grade, now, data.studentId, data.courseId);
+      queries.updateResult.run(data.grade, now, data.studentId, data.courseId);
 
+      // Complex JOIN query 
       const result = db.prepare(`
         SELECT 
           r.id, r.studentId, r.courseId, r.grade, r.createdAt, r.updatedAt,
@@ -78,24 +91,30 @@ export const createResult = async (data: {
         JOIN students s ON r.studentId = s.id
         JOIN courses c ON r.courseId = c.id
         WHERE r.studentId = ? AND r.courseId = ?
-      `).get(data.studentId, data.courseId);
+      `).get(data.studentId, data.courseId) as any;
 
       return {
         success: true,
         message: 'Result updated successfully',
-        data: result,
+        data: {
+          id: result.id,
+          studentId: result.studentId,
+          courseId: result.courseId,
+          grade: result.grade,
+          createdAt: result.createdAt,
+          updatedAt: result.updatedAt,
+          firstName: result.firstName,
+          lastName: result.lastName,
+          courseName: result.courseName
+        },
         statusCode: 200, 
       };
     } else {
       const id = generateId();
       
-      const insertStmt = db.prepare(`
-        INSERT INTO results (id, studentId, courseId, grade, createdAt, updatedAt)
-        VALUES (?, ?, ?, ?, ?, ?)
-      `);
+      queries.insertResult.run(id, data.studentId, data.courseId, data.grade, now, now);
 
-      insertStmt.run(id, data.studentId, data.courseId, data.grade, now, now);
-
+      // Complex JOIN query 
       const result = db.prepare(`
         SELECT 
           r.id, r.studentId, r.courseId, r.grade, r.createdAt, r.updatedAt,
@@ -105,12 +124,22 @@ export const createResult = async (data: {
         JOIN students s ON r.studentId = s.id
         JOIN courses c ON r.courseId = c.id
         WHERE r.id = ?
-      `).get(id);
+      `).get(id) as any;
 
       return {
         success: true,
         message: 'Result created successfully',
-        data: result,
+        data: {
+          id: result.id,
+          studentId: result.studentId,
+          courseId: result.courseId,
+          grade: result.grade,
+          createdAt: result.createdAt,
+          updatedAt: result.updatedAt,
+          firstName: result.firstName,
+          lastName: result.lastName,
+          courseName: result.courseName
+        },
         statusCode: 201, 
       };
     }
@@ -137,8 +166,16 @@ export const createResult = async (data: {
 
 export const deleteResult = async (id: string) => {
   try {
-    const stmt = db.prepare('DELETE FROM results WHERE id = ?');
-    const result = stmt.run(id);
+    if (!id?.trim()) {
+      return {
+        success: false,
+        message: 'Invalid result ID',
+        data: null,
+        statusCode: 400,
+      };
+    }
+
+    const result = queries.deleteResult.run(id);
 
     return {
       success: result.changes > 0,

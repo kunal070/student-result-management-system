@@ -16,12 +16,14 @@ app.use(cors({
 origin: process.env.FRONTEND_URL || 'http://localhost:5173',
   credentials: true,
 }));
+
+// JSON body parser
 app.use(express.json());
 
 // Health check
 app.get('/api/health', (_req: Request, res: Response) => {
   res.status(200).json({ status: 'UP', message: 'API is running fine.' });
-});
+  });
 
 // Mount API routes
 app.use('/api/students', studentRoutes);
@@ -35,7 +37,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server started on http://localhost:${PORT}`);
+  console.log(`Server started on http://localhost:${PORT}`);
 });
 
 process.on('SIGINT', async () => {
