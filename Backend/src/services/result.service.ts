@@ -1,5 +1,45 @@
 import { db, generateId } from '../lib/database';
 
+interface Result {
+  id: string;
+  studentId: string;
+  courseId: string;
+  grade: 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface ResultWithDetails {
+  id: string;
+  studentId: string;
+  courseId: string;
+  grade: 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
+  createdAt: string;
+  updatedAt: string;
+  student: {
+    firstName: string;
+    lastName: string;
+    fullName: string;
+  };
+  course: {
+    courseName: string;
+  };
+}
+
+interface CreateResultInput {
+  studentId: string;
+  courseId: string;
+  grade: 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
+}
+
+interface ServiceResponse<T = any> {
+  success: boolean;
+  message: string;
+  data: T | null;
+  statusCode: number;
+  errors?: Record<string, string[]>;
+}
+
 const queries = {
   checkExisting: db.prepare(`
     SELECT id FROM results 
@@ -20,9 +60,9 @@ const queries = {
   deleteResult: db.prepare('DELETE FROM results WHERE id = ?')
 };
 
-export const getAllResults = async () => {
+export const getAllResults = async (): Promise<ServiceResponse<ResultWithDetails[]>> => {
   try {
-    //Complex JOIN query 
+    // Complex JOIN query
     const results = db.prepare(`
       SELECT 
         r.id, r.studentId, r.courseId, r.grade, r.createdAt, r.updatedAt,
@@ -34,7 +74,7 @@ export const getAllResults = async () => {
       ORDER BY r.createdAt DESC
     `).all();
 
-    const transformedResults = results.map((row: any) => ({
+    const transformedResults: ResultWithDetails[] = results.map((row: any) => ({
       id: row.id,
       studentId: row.studentId,
       courseId: row.courseId,
@@ -68,11 +108,7 @@ export const getAllResults = async () => {
   }
 };
 
-export const createResult = async (data: {
-  studentId: string;
-  courseId: string;
-  grade: 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
-}) => {
+export const createResult = async (data: CreateResultInput): Promise<ServiceResponse<any>> => {
   try {
     const now = new Date().toISOString();
 
@@ -81,7 +117,7 @@ export const createResult = async (data: {
     if (existingResult) {
       queries.updateResult.run(data.grade, now, data.studentId, data.courseId);
 
-      // Complex JOIN query 
+      // Complex JOIN query
       const result = db.prepare(`
         SELECT 
           r.id, r.studentId, r.courseId, r.grade, r.createdAt, r.updatedAt,
@@ -114,7 +150,7 @@ export const createResult = async (data: {
       
       queries.insertResult.run(id, data.studentId, data.courseId, data.grade, now, now);
 
-      // Complex JOIN query 
+      // Complex JOIN query
       const result = db.prepare(`
         SELECT 
           r.id, r.studentId, r.courseId, r.grade, r.createdAt, r.updatedAt,
@@ -164,7 +200,7 @@ export const createResult = async (data: {
   }
 };
 
-export const deleteResult = async (id: string) => {
+export const deleteResult = async (id: string): Promise<ServiceResponse<null>> => {
   try {
     if (!id?.trim()) {
       return {
