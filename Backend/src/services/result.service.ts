@@ -1,14 +1,5 @@
 import { db, generateId } from '../lib/database';
 
-interface Result {
-  id: string;
-  studentId: string;
-  courseId: string;
-  grade: 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
-  createdAt: string;
-  updatedAt: string;
-}
-
 interface ResultWithDetails {
   id: string;
   studentId: string;
