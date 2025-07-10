@@ -1,6 +1,6 @@
 import type { Student } from '../../types/student';
 import { Mail, Calendar, Trash2 } from 'lucide-react';
-import ActionButton from './ActionButtons';
+import {ActionButton} from './ActionButtons';
 
 export const getStudentTableColumns = ({
   onDelete,

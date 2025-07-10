@@ -1,4 +1,4 @@
-import Dashboard from '../components/dashboard/Dashboard';
+import {Dashboard} from '../components/dashboard/Dashboard';
 
 const Home: React.FC = () => {
   return (
@@ -8,4 +8,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export {Home};

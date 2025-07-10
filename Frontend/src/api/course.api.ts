@@ -8,20 +8,21 @@ export interface CoursePayload {
 
 export const createCourse = async (course: CoursePayload) => {
   const response = await axios.post(`${API_URL}/create`, course);
-  return response.data; 
+  return response.data;
 };
 
-export const fetchCourses = async () => {
+export const fetchCourses = async (): Promise<{ courses: any[] }> => {
   const response = await axios.get(`${API_URL}/list`);
-  return response.data; 
+  console.log('[fetchCourses] response:', response.data);
+  return { courses: response.data.data };
 };
 
 export const deleteCourse = async (id: string) => {
   const response = await axios.delete(`${API_URL}/delete/${id}`);
-  return response.data; 
+  return response.data;
 };
 
 export const getCourseById = async (id: string) => {
   const response = await axios.get(`${API_URL}/list/${id}`);
-  return response.data; 
+  return response.data;
 };

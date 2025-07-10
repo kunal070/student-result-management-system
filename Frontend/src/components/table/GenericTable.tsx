@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import LoadingSkeleton from '../table/LoadingSkeleton';
+import {LoadingSkeleton} from '../table/LoadingSkeleton';
 import { Users, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Column<T> {

@@ -50,4 +50,4 @@ const StudentList: React.FC = () => {
   );
 };
 
-export default StudentList;
+export {StudentList};

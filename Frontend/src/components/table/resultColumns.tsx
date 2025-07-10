@@ -1,6 +1,6 @@
 import { type ResultWithRelations } from '../../types/result';
 import { Trash2 } from 'lucide-react';
-import ActionButton from './ActionButtons';
+import {ActionButton} from './ActionButtons';
 
 export const getResultTableColumns = ({
   onDelete,
@@ -11,13 +11,13 @@ export const getResultTableColumns = ({
     key: 'courseName',
     label: 'Course',
     render: (_: any, row: ResultWithRelations) => row.course.courseName,
-  },
+  },  
   {
     key: 'studentName',
-    label: 'Student',
+    label: 'Student',        
     render: (_: any, row: ResultWithRelations) =>
-      `${row.student.firstName} ${row.student.lastName}`,
-  },
+      `${row.student.firstName} ${row.student.lastName}`
+    },
   {
     key: 'score',
     label: 'Score',

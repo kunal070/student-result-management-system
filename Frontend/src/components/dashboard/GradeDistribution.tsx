@@ -45,5 +45,5 @@ const GradeDistribution: React.FC<GradeDistributionProps> = ({ gradeDistribution
   );
 };
 
-export default GradeDistribution;
+export {GradeDistribution};
   

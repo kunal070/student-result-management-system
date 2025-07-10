@@ -16,4 +16,4 @@ const LoadingSkeleton: React.FC<{ rows: number; cols: number }> = ({ rows, cols 
   </>
 );
 
-export default LoadingSkeleton;
+export  {LoadingSkeleton};

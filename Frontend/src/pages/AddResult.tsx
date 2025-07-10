@@ -28,7 +28,7 @@ const AddResult: React.FC = () => {
   const {
     data: courseData,
     isError: errorCourses,
-  } = useQuery<{ data: Course[] }, Error>({
+  } = useQuery<{ courses: Course[] }, Error>({
     queryKey: ['courses'],
     queryFn: fetchCourses,
   });
@@ -44,7 +44,6 @@ const AddResult: React.FC = () => {
 
   const onSubmit = async (data: ResultSchema) => {
     try {
-      // UPSERT behavior: Updates existing result if student-course combination exists
       const response = await createResult(data);
 
       if (response.success) {
@@ -66,7 +65,7 @@ const AddResult: React.FC = () => {
     })) ?? [];
 
   const courseOptions =
-    courseData?.data.map((course) => ({
+    courseData?.courses.map((course) => ({
       value: course.id,
       label: course.courseName,
     })) ?? [];

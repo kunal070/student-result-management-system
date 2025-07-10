@@ -14,12 +14,12 @@ const ResultList: React.FC = () => {
     data,
     isLoading,
     isError,
-  } = useQuery<{ data: ResultWithRelations[] }, Error>({
+  } = useQuery<{ results: ResultWithRelations[] }, Error>({
     queryKey: ['results'],
     queryFn: fetchResults,
   });
 
-  const results = data?.data ?? [];
+  const results = data?.results ?? [];
 
   const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this result?')) {
@@ -53,4 +53,4 @@ const ResultList: React.FC = () => {
   );
 };
 
-export default ResultList;
+export {ResultList};

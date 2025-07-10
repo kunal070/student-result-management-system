@@ -1,6 +1,6 @@
 import type { Course } from '../../types/course';
 import { Trash2 } from 'lucide-react';
-import ActionButton from './ActionButtons';
+import {ActionButton} from './ActionButtons';
 
 export const getCourseTableColumns = ({
   onDelete,

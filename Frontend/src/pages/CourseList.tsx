@@ -13,12 +13,12 @@ const CourseList: React.FC = () => {
     data,
     isLoading,
     isError,
-  } = useQuery<{ data: Course[] }, Error>({
+  } = useQuery<{ courses: Course[] }, Error>({
     queryKey: ['courses'],
     queryFn: fetchCourses,
   });
 
-  const courses = data?.data ?? [];
+  const courses = data?.courses ?? [];
 
   const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this course?')) {
@@ -50,4 +50,4 @@ const CourseList: React.FC = () => {
   );
 };
 
-export default CourseList;
+export  {CourseList};

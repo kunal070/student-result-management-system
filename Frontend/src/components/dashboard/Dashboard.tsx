@@ -6,8 +6,8 @@ import {
 } from 'lucide-react';
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
-import StatCard from './StatCard';
-import GradeDistribution from './GradeDistribution';
+import {StatCard} from './StatCard';
+import {GradeDistribution} from './GradeDistribution';
 
 import { fetchStudents } from '../../api/student.api';
 import { fetchCourses } from '../../api/course.api';
@@ -36,21 +36,21 @@ const Dashboard: React.FC = () => {
     data: courseData,
     isLoading: loadingCourses,
     isError: errorCourses,
-  } = useQuery<{ data: Course[] }, Error>({
+  } = useQuery<{ courses: Course[] }, Error>({
     queryKey: ['courses'],
     queryFn: fetchCourses,
     onError: handleCatchError,
-  } as UseQueryOptions<{ data: Course[] }, Error>);
+  } as UseQueryOptions<{ courses: Course[] }, Error>);
 
   const {
     data: resultData,
     isLoading: loadingResults,
     isError: errorResults,
-  } = useQuery<{ data: Result[] }, Error>({
+  } = useQuery<{ results: Result[] }, Error>({
   queryKey: ['results'],
   queryFn: fetchResults,
   onError: handleCatchError,
-} as UseQueryOptions<{ data: Result[] }, Error>);
+} as UseQueryOptions<{ results: Result[] }, Error>);
   if (errorStudents || errorCourses || errorResults) {
     return (
       <p className="text-red-500 text-center mt-10">
@@ -66,11 +66,10 @@ const Dashboard: React.FC = () => {
   }
 
   const totalStudents = studentData?.students?.length ?? 0;
-  const totalCourses = courseData?.data?.length ?? 0;
-  const results = resultData?.data ?? [];
+  const totalCourses = courseData?.courses?.length ?? 0;
+  const results = resultData?.results ?? [];
 
   const averageGrade = (() => {
-    // Grade point calculation: A=4.0, B=3.0, C=2.0, D=1.0, E=0.5, F=0.0
     const gradeValues: Record<string, number> = {
       A: 4, B: 3, C: 2, D: 1, E: 0.5, F: 0,
     };
@@ -152,4 +151,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export  {Dashboard};

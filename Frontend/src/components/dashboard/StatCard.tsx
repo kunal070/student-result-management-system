@@ -28,4 +28,4 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, trend, co
   </div>
 );
 
-export default StatCard;
+export {StatCard};

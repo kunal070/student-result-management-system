@@ -24,7 +24,7 @@ const navigation = [
 ];
 
 export const Sidebar: React.FC = () => {
-  const { collapsed, toggleSidebar } = useLayout(); // ✅ using context
+  const { collapsed, toggleSidebar } = useLayout(); // using context
 
   return (
     <div
@@ -107,3 +107,5 @@ export const Sidebar: React.FC = () => {
     </div>
   );
 };
+
+

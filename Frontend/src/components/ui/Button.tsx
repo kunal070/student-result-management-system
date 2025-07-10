@@ -3,9 +3,8 @@ import React from 'react';
 interface ButtonProps {
   children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
-  variant?: 'primary' | 'secondary' | 'danger';
-  size?: 'sm' | 'md' | 'lg';
-  disabled?: boolean;
+  variant?: 'primary' | 'danger';
+  size?: 'md' | 'lg';
   onClick?: () => void;
   className?: string;
 }
@@ -15,7 +14,6 @@ export const Button: React.FC<ButtonProps> = ({
   type = 'button',
   variant = 'primary',
   size = 'md',
-  disabled = false,
   onClick,
   className = '',
 }) => {
@@ -23,24 +21,20 @@ export const Button: React.FC<ButtonProps> = ({
   
   const variantClasses = {
     primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
-    secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500',
     danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
   };
   
   const sizeClasses = {
-    sm: 'px-3 py-1.5 text-sm',
     md: 'px-4 py-2 text-sm',
     lg: 'px-6 py-3 text-base',
   };
   
-  const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : '';
   
   return (
     <button
       type={type}
       onClick={onClick}
-      disabled={disabled}
-      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${disabledClasses} ${className}`}
+      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
     >
       {children}
     </button>
