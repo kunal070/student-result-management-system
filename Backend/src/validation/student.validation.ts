@@ -37,32 +37,37 @@ export const studentSchema = z.object({
       message: 'Disposable email addresses are not allowed'
     }),
     
-  dateOfBirth: z.string().refine((dob) => {
-    const date = new Date(dob);
-    const now = new Date();
-    
-    // Check if date is valid
-    if (isNaN(date.getTime())) {
-      return false;
-    }
-    
-    // Check if date is in the future
-    if (date > now) {
-      return false;
-    }
-    
-   // Check maximum age (100 years)
-    const hundredYearsAgo = new Date();
-    hundredYearsAgo.setFullYear(hundredYearsAgo.getFullYear() - 100);
-    if (date < hundredYearsAgo) {
-      return false;
-    }
-    
-    // Check minimum age (10 years)
-    const tenYearsAgo = new Date();
-    tenYearsAgo.setFullYear(tenYearsAgo.getFullYear() - 10);
-    return date <= tenYearsAgo;
-  }, {
-    message: 'Invalid date of birth. Student must be between 10 and 100 years old',
-  }),
+  dateOfBirth: z.string()
+    .refine((dob) => {
+      const date = new Date(dob);
+      return !isNaN(date.getTime());
+    }, {
+      message: 'Date of birth must be a valid date'
+    })
+    // Not in future
+    .refine((dob) => {
+      const date = new Date(dob);
+      const now = new Date();
+      return date <= now;
+    }, {
+      message: 'Date of birth cannot be in the future'
+    })
+    //Not older than 100 years
+    .refine((dob) => {
+      const date = new Date(dob);
+      const hundredYearsAgo = new Date();
+      hundredYearsAgo.setFullYear(hundredYearsAgo.getFullYear() - 100);
+      return date >= hundredYearsAgo;
+    }, {
+      message: 'Student age cannot exceed 100 years'
+    })
+    //At least 10 years old
+    .refine((dob) => {
+      const date = new Date(dob);
+      const tenYearsAgo = new Date();
+      tenYearsAgo.setFullYear(tenYearsAgo.getFullYear() - 10);
+      return date <= tenYearsAgo;
+    }, {
+      message: 'Student must be at least 10 years old'
+    }),
 });

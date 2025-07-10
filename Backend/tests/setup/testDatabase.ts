@@ -43,7 +43,7 @@ export const clearAllTables = async () => {
     } catch (sequenceError) {
     }
   } catch (error) {
-    console.error('❌ Error clearing tables:', error);
+    console.error('Error clearing tables:', error);
     console.log('Tables might not exist yet, which is normal for first test run');
   }
 };

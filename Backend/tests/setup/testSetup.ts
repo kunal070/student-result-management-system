@@ -8,18 +8,18 @@ beforeAll(async () => {
   
   await setupTestDatabase();
   
-  console.log('✅ Test environment initialized');
+  console.log('Test environment initialized');
 }, 30000); 
 
 afterAll(async () => {
   await cleanupTestDatabase();
-  console.log('✅ Test environment cleaned up');
+  console.log('Test environment cleaned up');
 }, 30000); 
 
 beforeEach(async () => {
   try {
     await clearAllTables();
-    console.log('✅ Tables cleared for test');
+    console.log('Tables cleared for test');
   } catch (error) {
     console.warn('Warning: Could not clear tables:', error);
   }
