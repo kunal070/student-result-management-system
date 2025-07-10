@@ -32,6 +32,7 @@ interface ServiceResponse<T = any> {
 }
 
 const queries = {
+  // for the upsert operation
   checkExisting: db.prepare(`
     SELECT id FROM results 
     WHERE studentId = ? AND courseId = ?
@@ -123,17 +124,7 @@ export const createResult = async (data: CreateResultInput): Promise<ServiceResp
       return {
         success: true,
         message: 'Result updated successfully',
-        data: {
-          id: result.id,
-          studentId: result.studentId,
-          courseId: result.courseId,
-          grade: result.grade,
-          createdAt: result.createdAt,
-          updatedAt: result.updatedAt,
-          firstName: result.firstName,
-          lastName: result.lastName,
-          courseName: result.courseName
-        },
+        data: result,
         statusCode: 200, 
       };
     } else {
@@ -156,17 +147,7 @@ export const createResult = async (data: CreateResultInput): Promise<ServiceResp
       return {
         success: true,
         message: 'Result created successfully',
-        data: {
-          id: result.id,
-          studentId: result.studentId,
-          courseId: result.courseId,
-          grade: result.grade,
-          createdAt: result.createdAt,
-          updatedAt: result.updatedAt,
-          firstName: result.firstName,
-          lastName: result.lastName,
-          courseName: result.courseName
-        },
+        data: result,
         statusCode: 201, 
       };
     }
